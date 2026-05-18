@@ -39,7 +39,7 @@ const WhyAdopt = () => {
     return (
        <div className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* HEADING */}
+
         <div className="mx-auto max-w-3xl text-center">
           <p className="font-semibold uppercase tracking-widest text-green-600">
             Why Choose Adoption
@@ -56,7 +56,7 @@ const WhyAdopt = () => {
           </p>
         </div>
 
-        {/* CARDS */}
+
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {reasons.map((item, index) => (
             <motion.div
