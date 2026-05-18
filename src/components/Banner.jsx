@@ -8,12 +8,12 @@ import { Button } from "@heroui/button";
 const Banner = () => {
     return (
         <div className="relative overflow-hidden bg-linear-to-br from-green-50 via-white to-emerald-100">
-      {/* Background Blur */}
+
       <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-green-300/30 blur-3xl" />
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-emerald-300/30 blur-3xl" />
 
       <div className="relative mx-auto grid min-h-[90vh] max-w-7xl grid-cols-1 items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:px-10">
-        {/* LEFT CONTENT */}
+   
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
@@ -59,7 +59,7 @@ const Banner = () => {
             </Button>
           </div>
 
-          {/* Stats */}
+         
           <div className="flex flex-wrap gap-8 pt-6">
             <div>
               <h3 className="text-3xl font-bold text-green-600">500+</h3>
@@ -78,14 +78,14 @@ const Banner = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT IMAGE */}
+     
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="relative flex items-center justify-center"
         >
-          {/* Main Image */}
+        
           <div className="relative">
             <div className="absolute inset-0 rounded-[40px] bg-green-400/20 blur-2xl" />
 
@@ -98,7 +98,7 @@ const Banner = () => {
             />
           </div>
 
-          {/* Floating Card */}
+     
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{
