@@ -14,6 +14,7 @@ import {
   User,
   PawPrint,
 } from "lucide-react";
+import { FaArrowRight } from "react-icons/fa";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -162,15 +163,32 @@ const NavBar = () => {
             {/* </div>
           )}
         </div> */} 
-        <Link href="/login">
-              <Button
-                color="success"
-                radius="full"
-                className="px-6 font-semibold shadow-lg"
-              >
-                Login
-              </Button>
+        <div className="flex items-center gap-4">
+            <Link href="/login">
+               <Button
+              as={Link}
+              href="/pets"
+              size="sm"
+              radius="full"
+              className="h-12 bg-green-600 px-6 text-base font-bold text-white shadow-2xl transition hover:scale-105"
+            >
+              Login
+              <FaArrowRight />
+            </Button>
             </Link>
+            <Link href="/register">
+               <Button
+              as={Link}
+              href="/pets"
+              size="sm"
+              radius="full"
+              className="h-12 bg-green-600 px-6 text-base font-bold text-white shadow-2xl transition hover:scale-105"
+            >
+              Register
+              <FaArrowRight />
+            </Button>
+            </Link>
+        </div>
 
         {/* MOBILE BUTTON */}
         <button
