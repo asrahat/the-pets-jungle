@@ -3,6 +3,7 @@ import Banner from "../components/Banner.jsx";
 import Image from "next/image";
 import SuccessStories from "@/components/SuccessStories.jsx";
 import PetsCare from "@/components/PetsCare.jsx";
+import Newsletter from "@/components/NewsLetter.jsx";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
     <WhyAdopt></WhyAdopt>
     <SuccessStories></SuccessStories>
     <PetsCare></PetsCare>
+    <Newsletter></Newsletter>
    </div>
   );
 }
