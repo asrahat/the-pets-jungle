@@ -5,11 +5,13 @@ import SuccessStories from "@/components/SuccessStories.jsx";
 import PetsCare from "@/components/PetsCare.jsx";
 import Newsletter from "@/components/NewsLetter.jsx";
 import RescueTeam from "@/components/RescueTeam.jsx";
+import FeaturedPets from "@/components/FeaturedPets.jsx";
 
 export default function Home() {
   return (
    <div>
     <Banner></Banner>
+    <FeaturedPets></FeaturedPets>
     <WhyAdopt></WhyAdopt>
     <SuccessStories></SuccessStories>
     <PetsCare></PetsCare>
