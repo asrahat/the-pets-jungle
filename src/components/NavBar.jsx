@@ -54,14 +54,7 @@ const NavBar = () => {
       name: "All Pets",
       href: "/pets",
     },
-    {
-      name: "My Requests",
-      href: "/my-requests",
-    },
-    {
-      name: "Add Pet",
-      href: "/add-pet",
-    },
+   
   ];
 
   return (
