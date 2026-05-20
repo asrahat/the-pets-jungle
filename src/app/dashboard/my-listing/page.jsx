@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { Button } from "@heroui/react";
+import Link from "next/link";
+import ListingPetDeleteAlert from "@/components/ListingPetDeleteAlert";
 
 const MyListingPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addpet`);
 
   const addPets = await res.json();
-  console.log(addPets.imageURL,'addpets');
+  console.log(addPets, "addpets");
 
   const totalListings = addPets?.length || 0;
 
@@ -45,13 +47,16 @@ const MyListingPage = async () => {
             className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition"
           >
             <div className="relative h-72 ">
-             <Image
-                       src={pet?.imageURL || 'https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1200&…'}
-                       alt={pet.petName}
-                       fill
-                       sizes="300"
-                       className="object-cover transition duration-700 group-hover:scale-110"
-                     />
+              <Image
+                src={
+                  pet?.imageURL ||
+                  "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1200&…"
+                }
+                alt={pet.petName}
+                fill
+                sizes="300"
+                className="object-cover transition duration-700 group-hover:scale-110"
+              />
 
               <span className="absolute top-3 left-3 bg-white text-xs px-3 py-1 rounded-full shadow">
                 {pet.species}
@@ -91,17 +96,17 @@ const MyListingPage = async () => {
                   Requests
                 </Button>
 
-                <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
-                  View
-                </Button>
+                <Link href={`/pets/${pet._id}`}>
+                  <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
+                    View
+                  </Button>
+                </Link>
 
                 <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
                   Edit
                 </Button>
 
-                <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
-                  Delete
-                </Button>
+                <ListingPetDeleteAlert petId={pet._id}></ListingPetDeleteAlert>
               </div>
             </div>
           </div>
