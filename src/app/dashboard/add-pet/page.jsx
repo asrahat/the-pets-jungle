@@ -1,3 +1,4 @@
+'use client'
 import {
   Button,
   FieldError,
@@ -12,13 +13,28 @@ import {
 import { FaPaw, FaPlus } from "react-icons/fa";
 
 const AddPetPage = () => {
+  const onSubmit = async(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const addPet = Object.fromEntries(formData.entries());
+    console.log(addPet);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addpet`,{
+        method:'POST',
+        headers:{
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(addPet)
+    })
+    const data= await res.json()
+    console.log(data,'data');
+
+
+  };
   return (
     <div className="min-h-screen w-full bg-linear-to-br from-green-50 via-white to-emerald-100 px-4 py-10">
-
       <div className="mx-auto max-w-6xl">
-
         <div className="mb-10 text-center">
-
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-green-100 px-5 py-2 text-sm font-bold text-green-700 shadow-sm">
             <FaPaw />
             Add New Pet
@@ -38,9 +54,7 @@ const AddPetPage = () => {
         </div>
 
         <div className="overflow-hidden rounded-[40px] border border-white/30 bg-white/60 shadow-2xl backdrop-blur-2xl">
-
           <div className="relative overflow-hidden bg-linear-to-r from-green-600 to-emerald-500 px-10 py-12">
-
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
 
             <div className="absolute -bottom-10 left-0 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
@@ -55,21 +69,15 @@ const AddPetPage = () => {
               </p>
             </div>
           </div>
-          <form className="space-y-10 p-6 md:p-10">
-
+          <form onSubmit={onSubmit} className="space-y-10 p-6 md:p-10">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-
               <div className="md:col-span-2">
                 <TextField name="petName" isRequired>
                   <Label className="mb-2 text-sm font-bold text-slate-700">
                     Pet Name
                   </Label>
 
-                  <Input
-                    placeholder="Luna"
-                    className="rounded-2xl w-full"
-                    
-                  />
+                  <Input placeholder="Luna" className="rounded-2xl w-full" />
 
                   <FieldError />
                 </TextField>
@@ -94,7 +102,6 @@ const AddPetPage = () => {
 
                   <Select.Popover>
                     <ListBox>
-
                       <ListBox.Item id="Dog" textValue="Dog">
                         Dog
                         <ListBox.ItemIndicator />
@@ -119,7 +126,6 @@ const AddPetPage = () => {
                         Fish
                         <ListBox.ItemIndicator />
                       </ListBox.Item>
-
                     </ListBox>
                   </Select.Popover>
                 </Select>
@@ -133,7 +139,6 @@ const AddPetPage = () => {
                 <Input
                   placeholder="Golden Retriever"
                   className="rounded-2xl w-full"
-                 
                 />
 
                 <FieldError />
@@ -153,11 +158,7 @@ const AddPetPage = () => {
                 <FieldError />
               </TextField>
 
-              <TextField
-                name="adoptionFee"
-                type="number"
-                isRequired
-              >
+              <TextField name="adoptionFee" type="number" isRequired>
                 <Label className="mb-2 text-sm font-bold text-slate-700">
                   Adoption Fee ($)
                 </Label>
@@ -203,7 +204,6 @@ const AddPetPage = () => {
 
                   <Select.Popover>
                     <ListBox>
-
                       <ListBox.Item id="Male" textValue="Male">
                         Male
                         <ListBox.ItemIndicator />
@@ -213,7 +213,6 @@ const AddPetPage = () => {
                         Female
                         <ListBox.ItemIndicator />
                       </ListBox.Item>
-
                     </ListBox>
                   </Select.Popover>
                 </Select>
@@ -238,23 +237,15 @@ const AddPetPage = () => {
 
                   <Select.Popover>
                     <ListBox>
-
-                      <ListBox.Item
-                        id="Vaccinated"
-                        textValue="Vaccinated"
-                      >
+                      <ListBox.Item id="Vaccinated" textValue="Vaccinated">
                         Vaccinated
                         <ListBox.ItemIndicator />
                       </ListBox.Item>
 
-                      <ListBox.Item
-                        id="Special Care"
-                        textValue="Special Care"
-                      >
+                      <ListBox.Item id="Special Care" textValue="Special Care">
                         Special Care
                         <ListBox.ItemIndicator />
                       </ListBox.Item>
-
                     </ListBox>
                   </Select.Popover>
                 </Select>
@@ -277,10 +268,7 @@ const AddPetPage = () => {
               </div>
 
               <div className="md:col-span-2">
-                <TextField
-                  name="shortDescription"
-                  isRequired
-                >
+                <TextField name="shortDescription" isRequired>
                   <Label className="mb-2 text-sm font-bold text-slate-700">
                     Description
                   </Label>
@@ -297,7 +285,6 @@ const AddPetPage = () => {
                   <FieldError />
                 </TextField>
               </div>
-
             </div>
 
             <Button

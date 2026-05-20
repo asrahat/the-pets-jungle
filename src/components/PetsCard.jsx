@@ -120,6 +120,7 @@ const PetsCard = ({ pet }) => {
             >
               Adopt Now
             </button>
+           
           </div>
         </div>
       </div>
