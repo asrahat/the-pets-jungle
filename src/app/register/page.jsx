@@ -218,15 +218,7 @@ const RegisterPage = () => {
         </div>
 
 
-        <Button
-          size="lg"
-          radius="full"
-          variant="bordered"
-          className="h-14 w-full border border-slate-200 bg-white text-base font-semibold shadow-md transition hover:bg-slate-50"
-        >
-          <FaGoogle className="text-red-500" />
-          Continue with Google
-        </Button>
+        
 
    
         <p className="mt-6 text-center text-sm text-slate-600">

@@ -62,6 +62,7 @@ const AdoptSection = ({ pet }) => {
       message,
 
       status: "pending",
+      requestDate: new Date().toLocaleDateString()
     };
 
     console.log(
