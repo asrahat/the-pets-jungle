@@ -21,7 +21,7 @@ const MyRequestPage = async () => {
   console.log(adoptings);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">
+    <div className="min-h-screen w-full bg-linear-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
           <div className="mb-4 inline-flex items-center rounded-full bg-pink-100 px-4 py-1 text-sm font-semibold text-pink-600">
