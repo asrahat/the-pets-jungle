@@ -182,7 +182,7 @@ const MyRequestPage = async () => {
                           </Button>
                         </Link>
 
-                        <AdoptingCancleAlert></AdoptingCancleAlert>
+                        <AdoptingCancleAlert adoptingId={adopting._id}></AdoptingCancleAlert>
                       </div>
                     </td>
                   </tr>

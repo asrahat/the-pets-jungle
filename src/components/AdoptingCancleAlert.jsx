@@ -1,9 +1,25 @@
 "use client";
 import { AlertDialog, Button } from "@heroui/react";
-const AdoptingCancleAlert = () => {
+import { toast } from "sonner";
+const AdoptingCancleAlert = ({adoptingId}) => {
+
+    const handleCancleAdopting = async()=>{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adopting/${adoptingId}`,{
+            method:"DELETE",
+            headers:{
+                'content-type':'application/json' 
+            }
+        })
+        const data = await res.json()
+        toast.success('Pet deleted successfully!')
+        console.log(data,'delete data');
+        window.location.reload()
+    }
+
   return (
     <AlertDialog>
       <Button
+     
         size="sm"
         radius="full"
         variant="bordered"
@@ -18,21 +34,12 @@ const AdoptingCancleAlert = () => {
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading>
-                Delete project permanently?
+                Cancle This Pet?
               </AlertDialog.Heading>
             </AlertDialog.Header>
-            <AlertDialog.Body>
-              <p>
-                This will permanently delete <strong>My Awesome Project</strong>{" "}
-                and all of its data. This action cannot be undone.
-              </p>
-            </AlertDialog.Body>
             <AlertDialog.Footer>
-              <Button slot="close" variant="tertiary">
-                Cancel
-              </Button>
-              <Button slot="close" variant="danger">
-                Delete Project
+              <Button  onClick={handleCancleAdopting} slot="close" variant="danger">
+                Cancle Pet
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>
