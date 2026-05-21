@@ -1,7 +1,10 @@
 import AdoptSection from "@/components/AdoptSection";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 export const fetchPet = async(id) => {
+  
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/pets/${id}`
   );
@@ -15,12 +18,16 @@ const PetDetailsPage = async ( {params}) => {
     const {id} = await params
 
   const pet = await fetchPet(id);
-
+const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+  
+    const user = session?.user;
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-3">
 
-        {/* LEFT */}
+   
         <div className="lg:col-span-2 space-y-6">
 
           <div className="relative h-[400px] overflow-hidden rounded-3xl shadow-xl">
@@ -47,9 +54,13 @@ const PetDetailsPage = async ( {params}) => {
             </p>
           </div>
         </div>
-
-        {/* RIGHT (CLIENT FORM) */}
-        <AdoptSection pet={pet} />
+<AdoptSection pet={pet} />
+        {/* {
+          !user?<AdoptSection pet={pet} />:<div>
+            requested done
+          </div>
+        } */}
+        
       </div>
     </div>
   );

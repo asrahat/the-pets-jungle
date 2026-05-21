@@ -26,8 +26,11 @@ const LoginPage = () => {
 
     const { data, error } = await authClient.signIn.email({
       ...loginData,
-      callbackURL: "/",
+      // callbackURL: "/",
     });
+
+    const { data:tokenData} = await authClient.token()
+    console.log(tokenData,'tokenData');
 
     if (error) {
       toast.error("Login failed. Please check your credentials.");
@@ -41,7 +44,9 @@ const LoginPage = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      // later you will connect OAuth
+         const data = await authClient.signIn.social({
+    provider: "google",
+  });
       toast.success("Google login clicked!");
     } catch (err) {
       toast.error("Google login failed");
@@ -120,7 +125,7 @@ const LoginPage = () => {
 
         {/* GOOGLE LOGIN */}
         <Button
-          onPress={handleGoogleLogin}
+          onClick={handleGoogleLogin}
           size="lg"
           radius="full"
           variant="bordered"

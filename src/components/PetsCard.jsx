@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { useSession } from "@/lib/auth-client";
 
 const PetsCard = ({ pet }) => {
-  console.log(pet,'pet');
+  // console.log(pet,'pet');
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -40,6 +40,7 @@ const PetsCard = ({ pet }) => {
           src={pet.imageURL || 'https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGV0c3xlbnwwfHwwfHx8MA%3D%3D'}
           alt={pet.petName || 'pet'}
           fill
+          sizes="300"
           className="object-cover transition duration-700 group-hover:scale-110"
         />
 

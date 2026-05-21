@@ -18,7 +18,10 @@ const MyRequestPage = async () => {
   );
 
   const adoptings = await res.json();
-  console.log(adoptings);
+  // console.log(adoptings);
+
+
+  
 
   return (
     <div className="min-h-screen w-full bg-linear-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">

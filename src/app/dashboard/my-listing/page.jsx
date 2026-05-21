@@ -11,7 +11,7 @@ const MyListingPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addpet`);
 
   const addPets = await res.json();
-  console.log(addPets, "addpets");
+  // console.log(addPets, "addpets");
 
   const totalListings = addPets?.length || 0;
 
@@ -30,7 +30,7 @@ const MyListingPage = async () => {
     );
   
     const adoptings = await adoptRes.json();
-    console.log(adoptings,'adopting datee');
+    // console.log(adoptings,'adopting datee');
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">

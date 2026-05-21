@@ -17,7 +17,7 @@ const AddPetPage = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const addPet = Object.fromEntries(formData.entries());
-    console.log(addPet);
+    // console.log(addPet);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addpet`,{
         method:'POST',
@@ -27,7 +27,7 @@ const AddPetPage = () => {
         body: JSON.stringify(addPet)
     })
     const data= await res.json()
-    console.log(data,'data');
+    // console.log(data,'data');
 
 
   };
