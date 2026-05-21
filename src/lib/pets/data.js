@@ -1,7 +1,15 @@
-export const fetchPets = async (searchTerm = '') => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pets?search=${searchTerm}`);
-  const data = await res.json();
-  return data || [];
+export const fetchPets = async (
+  searchTerm = ""
+) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/pets?searchTerm=${searchTerm}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch pets");
+  }
+
+  return res.json();
 };
 export const fetchFeaturedPets = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featured`);

@@ -30,9 +30,10 @@ const NavBar = () => {
   const handleLogOut = async () => {
     await authClient.signOut();
 
-    router.push("/");
     toast.success("Logout successful!");
     window.location.reload();
+    router.push("/login");
+
   };
 
   useEffect(() => {

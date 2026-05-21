@@ -1,47 +1,48 @@
 "use client";
 
-import { Search } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import {
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 
 const SearchBar = () => {
-  const [search, setSearch] = useState("");
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [search, setSearch] = useState(
+    searchParams.get("searchTerm") || ""
+  );
+
+  
   const handleSearch = () => {
-    const params = new URLSearchParams(
-      searchParams.toString()
-    );
+    const params = new URLSearchParams();
 
     if (search) {
       params.set("searchTerm", search);
-    } else {
-      params.delete("searchTerm");
     }
+
+   
 
     router.push(`/pets?${params.toString()}`);
   };
 
   return (
-    <div className="relative flex items-center overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-
-      <div className="pl-5 text-slate-400">
-        <Search className="h-5 w-5" />
-      </div>
+    <div className="flex gap-3">
 
       <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
         type="text"
         placeholder="Search pets..."
-        className="h-14 flex-1 bg-transparent px-4 outline-none"
+        value={search}
+        onChange={(e) =>
+          setSearch(e.target.value)
+        }
+        className="shadow-2xl border border-zinc-200 p-3 rounded-xl w-full"
       />
 
       <button
         onClick={handleSearch}
-        className="mr-2 h-10 rounded-xl bg-green-600 px-6 font-semibold text-white"
+        className="bg-green-600 text-white px-6 rounded-xl"
       >
         Search
       </button>

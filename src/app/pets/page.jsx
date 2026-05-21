@@ -7,7 +7,8 @@ import PetsHeader from "@/components/PetsHeader";
 
 const PetsPage = async ({ searchParams }) => {
       const sParams = await searchParams;
-  const pets = await fetchPets(sParams?.searchTerm || "");
+  const pets = await fetchPets(sParams?.searchTerm || ""
+  );
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10">
