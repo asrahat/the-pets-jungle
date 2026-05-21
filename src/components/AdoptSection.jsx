@@ -13,12 +13,11 @@ const AdoptSection = ({ pet }) => {
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
+  console.log(user,'user');
 
-  const [pickupDate, setPickupDate] =
-    useState("");
-
-  const [message, setMessage] =
-    useState("");
+  const [pickupDate, setPickupDate] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const {
     petName,
@@ -28,11 +27,8 @@ const AdoptSection = ({ pet }) => {
   } = pet;
 
   const handleAdopt = async () => {
-
     if (!session) {
-      toast.error(
-        "Please login first"
-      );
+      toast.error("Please login first");
 
       router.push("/login");
 
@@ -40,9 +36,7 @@ const AdoptSection = ({ pet }) => {
     }
 
     if (!pickupDate) {
-      toast.error(
-        "Pickup date required"
-      );
+      toast.error("Pickup date required");
 
       return;
     }
@@ -50,7 +44,8 @@ const AdoptSection = ({ pet }) => {
     const adoptionData = {
       petId: _id,
       petName,
-      petImage: imageURL,
+      imageURL,
+
       adoptionFee,
 
       userId: user?.id,
@@ -58,29 +53,27 @@ const AdoptSection = ({ pet }) => {
       userName: user?.name,
       userEmail: user?.email,
 
-      pickupDate,
+      pickupDate: new Date(pickupDate),
       message,
 
-      status: "pending",
-      requestDate: new Date().toLocaleDateString()
+      status: ["pending", 'Approve'],
+
+      requestDate: new Date().toISOString(),
     };
 
-    console.log(
-      adoptionData,
-      "adoptionData"
-    );
+    console.log(adoptionData, "adoptionData");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adopting`,
+      setLoading(true);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/adopting`,
         {
           method: "POST",
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(
-            adoptionData
-          ),
+          body: JSON.stringify(adoptionData),
         }
       );
 
@@ -88,36 +81,38 @@ const AdoptSection = ({ pet }) => {
 
       if (!res.ok) {
         toast.error(
-          data.message ||
-            "Failed to adopt pet"
+          data.message || "Failed to adopt pet"
         );
+
+        setLoading(false);
 
         return;
       }
 
-      toast.success(
-        "Adoption request sent!"
-      );
+      toast.success("Adoption request sent!");
 
-      router.push(
-        "/dashboard/my-request"
-      );
+      router.push("/dashboard/my-request");
     } catch (err) {
       console.log(err);
 
-      toast.error(
-        "Something went wrong"
-      );
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="lg:col-span-1">
-      <div className="sticky top-10 space-y-5 rounded-3xl bg-white p-6 shadow-xl">
+      <div className="sticky top-10 space-y-5 rounded-3xl border border-white/20 bg-white p-6 shadow-xl">
+        <div>
+          <h2 className="text-2xl font-black text-slate-900">
+            Adoption Form
+          </h2>
 
-        <h2 className="text-2xl font-black text-slate-900">
-          Adoption Form
-        </h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Fill the form to request adoption
+          </p>
+        </div>
 
         <div>
           <label className="mb-2 block text-sm font-semibold text-slate-600">
@@ -125,7 +120,7 @@ const AdoptSection = ({ pet }) => {
           </label>
 
           <input
-            value={petName}
+            value={petName || ""}
             readOnly
             className="w-full rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 outline-none"
           />
@@ -164,11 +159,9 @@ const AdoptSection = ({ pet }) => {
             type="date"
             value={pickupDate}
             onChange={(e) =>
-              setPickupDate(
-                e.target.value
-              )
+              setPickupDate(e.target.value)
             }
-            className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-green-500"
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-green-500"
           />
         </div>
 
@@ -180,26 +173,26 @@ const AdoptSection = ({ pet }) => {
           <textarea
             value={message}
             onChange={(e) =>
-              setMessage(
-                e.target.value
-              )
+              setMessage(e.target.value)
             }
             placeholder="Why do you want to adopt this pet?"
             rows={4}
-            className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-green-500"
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-green-500"
           />
         </div>
 
         <button
+          type="button"
+          disabled={loading}
           onClick={handleAdopt}
-          className="w-full rounded-xl bg-linear-to-r from-green-600 to-emerald-500 py-3 font-bold text-white shadow-lg transition hover:scale-[1.02]"
+          className="w-full rounded-xl bg-linear-to-r from-green-600 to-emerald-500 py-3 font-bold text-white shadow-lg transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Adopt Now
+          {loading ? "Sending Request..." : "Adopt Now"}
         </button>
 
         <p className="text-center text-xs text-slate-500">
           Default Status:
-          <span className="ml-1 font-semibold text-yellow-600">
+          <span className="ml-1 font-semibold capitalize text-yellow-600">
             pending
           </span>
         </p>

@@ -3,6 +3,9 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 import ListingPetDeleteAlert from "@/components/ListingPetDeleteAlert";
 import EditPetModal from "@/components/EditPetModal";
+import RequestModal from "@/components/RequestModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const MyListingPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addpet`);
@@ -15,6 +18,19 @@ const MyListingPage = async () => {
   const available = addPets?.length || 0;
   const adopted = 0;
 
+
+  const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+  
+    const user = session?.user;
+  
+    const adoptRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/adopting/${user?.id}`,
+    );
+  
+    const adoptings = await adoptRes.json();
+    console.log(adoptings,'adopting datee');
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
@@ -94,9 +110,7 @@ const MyListingPage = async () => {
               </div>
 
               <div className=" grid grid-cols-2 gap-4 mt-4">
-                <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
-                  Requests
-                </Button>
+               <RequestModal  adoptings={adoptings}></RequestModal>
 
                 <Link href={`/pets/${pet._id}`}>
                   <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
