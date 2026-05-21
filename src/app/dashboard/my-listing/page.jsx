@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@heroui/react";
 import Link from "next/link";
 import ListingPetDeleteAlert from "@/components/ListingPetDeleteAlert";
+import EditPetModal from "@/components/EditPetModal";
 
 const MyListingPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addpet`);
@@ -13,6 +14,7 @@ const MyListingPage = async () => {
 
   const available = addPets?.length || 0;
   const adopted = 0;
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
@@ -102,9 +104,7 @@ const MyListingPage = async () => {
                   </Button>
                 </Link>
 
-                <Button className="rounded-full cursor-pointer bg-linear-to-r from-green-600 to-emerald-500 px-5 py-2 text-sm font-bold text-white shadow-lg transition hover:scale-105">
-                  Edit
-                </Button>
+                <EditPetModal pet={pet}></EditPetModal>
 
                 <ListingPetDeleteAlert petId={pet._id}></ListingPetDeleteAlert>
               </div>
