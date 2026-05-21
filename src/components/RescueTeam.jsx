@@ -30,7 +30,7 @@ const teamMembers = [
 
 const RescueTeam = () => {
   return (
-    <section className="bg-slate-50 py-24">
+    <div className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="mx-auto max-w-3xl text-center">
@@ -99,7 +99,7 @@ const RescueTeam = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

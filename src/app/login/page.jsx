@@ -38,8 +38,9 @@ const LoginPage = () => {
     }
 
     toast.success("Login successful!");
-
+    
     router.push("/"); // redirect home
+    window.location.reload()
   };
 
   const handleGoogleLogin = async () => {
