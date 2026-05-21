@@ -1,34 +1,37 @@
 import AdoptSection from "@/components/AdoptSection";
 import { auth } from "@/lib/auth";
+import { fetchPet } from "@/lib/pets/data";
 import { headers } from "next/headers";
 import Image from "next/image";
 
-export const fetchPet = async(id) => {
+
+
+const PetDetailsPage = async ({ params }) => {
+  const { id } = await params;
+
   
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/pets/${id}`
-  );
+  // const tokenData = await auth.api.getToken({
+  //   headers: await headers(),
+  // });
 
-  if (!res.ok) throw new Error("Failed to fetch pet");
+  // const token = tokenData?.token;
 
-  return res.json();
-};
+  // console.log(token, "TOKEN");
 
-const PetDetailsPage = async ( {params}) => {
-    const {id} = await params
+  const pet = await fetchPet(id);//token
 
-  const pet = await fetchPet(id);
-const session = await auth.api.getSession({
-      headers: await headers(),
-    });
-  
-    const user = session?.user;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const user = session?.user;
+
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-3">
 
-   
-        <div className="lg:col-span-2 space-y-6">
+        {/* LEFT */}
+        <div className="space-y-6 lg:col-span-2">
 
           <div className="relative h-[400px] overflow-hidden rounded-3xl shadow-xl">
             <Image
@@ -39,7 +42,7 @@ const session = await auth.api.getSession({
             />
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-md space-y-3">
+          <div className="space-y-3 rounded-3xl bg-white p-6 shadow-md">
             <h1 className="text-4xl font-black">
               {pet.petName}
             </h1>
@@ -54,13 +57,10 @@ const session = await auth.api.getSession({
             </p>
           </div>
         </div>
-<AdoptSection pet={pet} />
-        {/* {
-          !user?<AdoptSection pet={pet} />:<div>
-            requested done
-          </div>
-        } */}
-        
+
+        {/* RIGHT */}
+        <AdoptSection pet={pet} />
+
       </div>
     </div>
   );

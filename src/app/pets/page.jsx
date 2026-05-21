@@ -3,12 +3,15 @@ import Link from "next/link";
 
 import { fetchPets } from "@/lib/pets/data";
 import PetsCard from "@/components/PetsCard";
+import PetsHeader from "@/components/PetsHeader";
 
-const PetsPage = async () => {
-  const pets = await fetchPets();
+const PetsPage = async ({ searchParams }) => {
+      const sParams = await searchParams;
+  const pets = await fetchPets(sParams?.searchTerm || "");
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10">
+      <PetsHeader></PetsHeader>
       <div className="mx-auto max-w-7xl">
 
         

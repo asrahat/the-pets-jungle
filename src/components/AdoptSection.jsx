@@ -45,7 +45,7 @@ const AdoptSection = ({ pet }) => {
       pickupDate: new Date(pickupDate),
       message,
 
-      status: ["pending",'Approved','Approved'],
+      status: "pending",
       requestDate: new Date().toISOString(),
     };
 
@@ -79,7 +79,7 @@ const AdoptSection = ({ pet }) => {
       // router.push("/dashboard/my-request");
 
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
