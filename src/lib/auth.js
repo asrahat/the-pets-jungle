@@ -12,18 +12,17 @@ export const auth = betterAuth({
     client,
   }),
 
+  socialProviders: {
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
+  },
+},
   emailAndPassword: {
     enabled: true,
   },
 
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    },
-  },
-
-  // ✅ MOVE HERE
   plugins: [jwt()],
 
   session: {

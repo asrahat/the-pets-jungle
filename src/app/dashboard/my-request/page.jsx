@@ -1,8 +1,6 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-
 import Link from "next/link";
-
 import { Button } from "@heroui/react";
 import AdoptingCancleAlert from "@/components/AdoptingCancleAlert";
 
@@ -14,14 +12,15 @@ const MyRequestPage = async () => {
   const user = session?.user;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/adopting/${user?.id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/adopting/${user?.id}`
   );
 
-  const adoptings = await res.json();
-  // console.log(adoptings);
+  const adoptingsData = await res.json();
 
-
-  
+  const adoptings = adoptingsData.filter(
+    (item, index, self) =>
+      index === self.findIndex((t) => t.petId === item.petId)
+  );
 
   return (
     <div className="min-h-screen w-full bg-linear-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">
@@ -44,44 +43,30 @@ const MyRequestPage = async () => {
         </div>
 
         <div className="mb-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-[24px] border border-white/20 bg-linear-to-br from-slate-900 to-slate-800 p-8 shadow-2xl">
-            <h2 className="text-center text-4xl font-black text-white">
-              {adoptings.length}
-            </h2>
-
-            <p className="mt-2 text-center text-sm font-medium text-slate-400">
-              Total
-            </p>
+          <div className="rounded-[24px] bg-slate-900 p-8 text-center text-white">
+            <h2 className="text-4xl font-black">{adoptings.length}</h2>
+            <p className="text-sm text-slate-400">Total</p>
           </div>
 
-          <div className="rounded-[24px] border border-white/20 bg-linear-to-br from-slate-900 to-slate-800 p-8 shadow-2xl">
-            <h2 className="text-center text-4xl font-black text-yellow-400">
-              {adoptings.filter((item) => item.status === "pending").length}
+          <div className="rounded-[24px] bg-slate-900 p-8 text-center">
+            <h2 className="text-4xl font-black text-yellow-400">
+              {adoptings.filter((i) => i.status === "pending").length}
             </h2>
-
-            <p className="mt-2 text-center text-sm font-medium text-slate-400">
-              Pending
-            </p>
+            <p className="text-sm text-slate-400">Pending</p>
           </div>
 
-          <div className="rounded-[24px] border border-white/20 bg-linear-to-br from-slate-900 to-slate-800 p-8 shadow-2xl">
-            <h2 className="text-center text-4xl font-black text-green-400">
-              {adoptings.filter((item) => item.status === "approved").length}
+          <div className="rounded-[24px] bg-slate-900 p-8 text-center">
+            <h2 className="text-4xl font-black text-green-400">
+              {adoptings.filter((i) => i.status === "approved").length}
             </h2>
-
-            <p className="mt-2 text-center text-sm font-medium text-slate-400">
-              Approved
-            </p>
+            <p className="text-sm text-slate-400">Approved</p>
           </div>
 
-          <div className="rounded-[24px] border border-white/20 bg-linear-to-br from-slate-900 to-slate-800 p-8 shadow-2xl">
-            <h2 className="text-center text-4xl font-black text-red-500">
-              {adoptings.filter((item) => item.status === "rejected").length}
+          <div className="rounded-[24px] bg-slate-900 p-8 text-center">
+            <h2 className="text-4xl font-black text-red-500">
+              {adoptings.filter((i) => i.status === "rejected").length}
             </h2>
-
-            <p className="mt-2 text-center text-sm font-medium text-slate-400">
-              Rejected
-            </p>
+            <p className="text-sm text-slate-400">Rejected</p>
           </div>
         </div>
 
@@ -108,65 +93,44 @@ const MyRequestPage = async () => {
             </div>
           </div>
         ) : (
-          <div className="w-full overflow-x-auto rounded-[30px] border border-white/20 bg-white/70 shadow-2xl backdrop-blur-xl">
+          <div className="w-full overflow-x-auto rounded-[30px] bg-white/70 shadow-2xl backdrop-blur-xl">
             <table className="w-full min-w-[900px]">
-              {/* HEAD */}
               <thead className="bg-linear-to-r from-green-600 to-emerald-500 text-white">
                 <tr>
-                  <th className="px-8 py-5 text-left text-sm font-bold uppercase tracking-wide">
-                    Pet Name
-                  </th>
-
-                  <th className="px-8 py-5 text-left text-sm font-bold uppercase tracking-wide">
-                    Request Date
-                  </th>
-
-                  <th className="px-8 py-5 text-left text-sm font-bold uppercase tracking-wide">
-                    Pickup Date
-                  </th>
-
-                  <th className="px-8 py-5 text-left text-sm font-bold uppercase tracking-wide">
-                    Status
-                  </th>
-
-                  <th className="px-8 py-5 text-center text-sm font-bold uppercase tracking-wide">
-                    Actions
-                  </th>
+                  <th className="px-8 py-5 text-left">Pet Name</th>
+                  <th className="px-8 py-5 text-left">Request Date</th>
+                  <th className="px-8 py-5 text-left">Pickup Date</th>
+                  <th className="px-8 py-5 text-left">Status</th>
+                  <th className="px-8 py-5 text-center">Actions</th>
                 </tr>
               </thead>
 
               <tbody>
-                {adoptings.map((adopting, index) => (
+                {adoptings.map((adopting) => (
                   <tr
                     key={adopting._id}
-                    className={`transition hover:bg-green-50/70 ${
-                      index !== adoptings.length - 1
-                        ? "border-b border-slate-100"
-                        : ""
-                    }`}
+                    className="border-b hover:bg-green-50/60 transition"
                   >
-                    <td className="px-8 py-6">
-                      <h2 className="text-base font-bold text-slate-800">
-                        {adopting.petName}
-                      </h2>
+                    <td className="px-8 py-6 font-bold">
+                      {adopting.petName}
                     </td>
 
-                    <td className="px-8 py-6 text-sm font-medium text-slate-600">
+                    <td className="px-8 py-6">
                       {new Date(adopting.requestDate).toLocaleDateString()}
                     </td>
 
-                    <td className="px-8 py-6 text-sm font-medium text-slate-600">
+                    <td className="px-8 py-6">
                       {adopting.pickupDate}
                     </td>
 
                     <td className="px-8 py-6">
                       <span
-                        className={`rounded-full px-4 py-2 text-xs font-bold capitalize ${
+                        className={`rounded-full px-4 py-2 text-xs font-bold ${
                           adopting.status === "pending"
                             ? "bg-yellow-100 text-yellow-700"
                             : adopting.status === "approved"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-red-100 text-red-600"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-600"
                         }`}
                       >
                         {adopting.status}
@@ -174,18 +138,19 @@ const MyRequestPage = async () => {
                     </td>
 
                     <td className="px-8 py-6">
-                      <div className="flex items-center justify-center gap-3">
+                      <div className="flex justify-center gap-3">
                         <Link href={`/pets/${adopting.petId}`}>
                           <Button
                             size="sm"
-                            radius="full"
-                            className="bg-green-600 px-5 font-semibold text-white shadow-md"
+                            className="bg-green-600 text-white"
                           >
                             View
                           </Button>
                         </Link>
 
-                        <AdoptingCancleAlert adoptingId={adopting._id}></AdoptingCancleAlert>
+                        <AdoptingCancleAlert
+                          adoptingId={adopting._id}
+                        />
                       </div>
                     </td>
                   </tr>

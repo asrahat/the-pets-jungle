@@ -17,7 +17,7 @@ import {
 } from "@heroui/react";
 
 const EditPetModal = ({ pet }) => {
-  console.log(pet, "pet");
+//   console.log(pet, "pet");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const EditPetModal = ({ pet }) => {
     const formData = new FormData(e.currentTarget);
     const updatedPet = Object.fromEntries(formData.entries());
 
-    console.log(updatedPet);
+    // console.log(updatedPet);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/addpet/${pet._id}`,
@@ -39,7 +39,7 @@ const EditPetModal = ({ pet }) => {
     );
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     window.location.reload()
   };
 

@@ -12,7 +12,7 @@ const AdoptingCancleAlert = ({adoptingId}) => {
         })
         const data = await res.json()
         toast.success('Pet deleted successfully!')
-        console.log(data,'delete data');
+        // console.log(data,'delete data');
         window.location.reload()
     }
 

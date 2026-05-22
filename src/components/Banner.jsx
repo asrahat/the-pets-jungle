@@ -17,7 +17,7 @@ import {
 
 const Banner = () => {
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-green-50 via-white to-emerald-100">
+    <div className="relative overflow-hidden bg-linear-to-br from-green-50 via-white to-emerald-100">
   
       <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-green-300/30 blur-3xl" />
 
@@ -220,7 +220,7 @@ const Banner = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -12,7 +12,7 @@ import {
 
 const Newsletter = () => {
   return (
-    <section className="relative overflow-hidden py-28">
+    <div className="relative overflow-hidden py-28">
   
       <div className="absolute inset-0 bg-linear-to-br from-green-600 via-emerald-600 to-lime-500" />
 
@@ -140,7 +140,7 @@ const Newsletter = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

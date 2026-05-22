@@ -26,7 +26,7 @@ const LoginPage = () => {
 
     const { data, error } = await authClient.signIn.email({
       ...loginData,
-      // callbackURL: "/",
+      callbackURL: "/",
     });
 
     const { data:tokenData} = await authClient.token()
@@ -43,16 +43,13 @@ const LoginPage = () => {
     window.location.reload()
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-         const data = await authClient.signIn.social({
-    provider: "google",
-  });
-      toast.success("Google login clicked!");
-    } catch (err) {
-      toast.error("Google login failed");
-    }
-  };
+
+  const handleGoogleLogin = async()=>{
+    const data = await authClient.signIn.social({
+      provider:'google'
+    })
+  }
+ 
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-green-50 via-white to-emerald-100 px-4">
