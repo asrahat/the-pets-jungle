@@ -20,15 +20,15 @@ export const fetchFeaturedPets = async () => {
 export const fetchPet = async (id, token) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/pets/${id}`,
-    // {
-    //   headers: {
-    //     authorization: token
-    //       ? `Bearer ${token}`
-    //       : "",
-    //   },
+    {
+      headers: {
+        authorization: token
+          ? `Bearer ${token}`
+          : "",
+      },
 
-    //   cache: "no-store",
-    // }
+      cache: "no-store",
+    }
   );
 
   if (!res.ok) {

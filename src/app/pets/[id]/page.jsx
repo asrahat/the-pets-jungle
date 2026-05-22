@@ -10,15 +10,15 @@ const PetDetailsPage = async ({ params }) => {
   const { id } = await params;
 
   
-  // const tokenData = await auth.api.getToken({
-  //   headers: await headers(),
-  // });
+  const tokenData = await auth.api.getToken({
+    headers: await headers(),
+  });
 
-  // const token = tokenData?.token;
+  const token = tokenData?.token;
 
   // console.log(token, "TOKEN");
 
-  const pet = await fetchPet(id);//token
+  const pet = await fetchPet(id,token);//token
 
   const session = await auth.api.getSession({
     headers: await headers(),
