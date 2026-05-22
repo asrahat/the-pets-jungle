@@ -54,11 +54,9 @@ const LoginPage = () => {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-green-50 via-white to-emerald-100 px-4">
 
-      {/* BACKGROUND */}
       <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-green-300/20 blur-3xl" />
       <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-emerald-300/20 blur-3xl" />
 
-      {/* CARD */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -66,14 +64,12 @@ const LoginPage = () => {
         className="relative w-full max-w-md rounded-[30px] border border-white/30 bg-white/40 p-10 shadow-2xl backdrop-blur-2xl"
       >
 
-        {/* ICON */}
         <div className="mb-6 flex justify-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 shadow-lg">
             <FaPaw className="text-3xl text-white" />
           </div>
         </div>
 
-        {/* TITLE */}
         <h2 className="text-center text-3xl font-black text-slate-900">
           Welcome Back
         </h2>
@@ -82,10 +78,8 @@ const LoginPage = () => {
           Login to continue your pet adoption journey
         </p>
 
-        {/* FORM */}
         <form onSubmit={handleLogin} className="mt-8 space-y-5">
 
-          {/* EMAIL */}
           <Input
             name="email"
             type="email"
@@ -93,8 +87,6 @@ const LoginPage = () => {
             className="w-full rounded-lg"
             required
           />
-
-          {/* PASSWORD */}
           <Input
             name="password"
             type="password"
@@ -103,7 +95,6 @@ const LoginPage = () => {
             required
           />
 
-          {/* LOGIN BUTTON */}
           <Button
             type="submit"
             size="lg"
@@ -114,14 +105,12 @@ const LoginPage = () => {
           </Button>
         </form>
 
-        {/* DIVIDER */}
         <div className="my-6 flex items-center gap-3">
           <div className="h-px flex-1 bg-slate-200" />
           <span className="text-xs text-slate-500">OR CONTINUE WITH</span>
           <div className="h-px flex-1 bg-slate-200" />
         </div>
 
-        {/* GOOGLE LOGIN */}
         <Button
           onClick={handleGoogleLogin}
           size="lg"
@@ -133,7 +122,6 @@ const LoginPage = () => {
           Google Login
         </Button>
 
-        {/* REGISTER LINK */}
         <p className="mt-6 text-center text-sm text-slate-600">
           Don&apos;t have an account?{" "}
           <Link
